@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    environment:
+      - SKIP_TESTS=true
+    container_name: Attack_detector
+    command: python3 main.py
+    volumes:
+      - .:/app
