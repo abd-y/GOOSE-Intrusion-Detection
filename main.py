@@ -1,10 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
+import streamlit as st
 
 class Model:
     def __init__(self, model, X_train, y_train, X_test, y_test):
@@ -26,16 +24,21 @@ class Model:
         print("true_y: ", self.y_test[index])
         print("predicted vaule: ", self.model.predict(self.X_test.iloc[index].to_frame().T))
 
-train = pd.read_csv("./dataset/Train.csv")
-test = pd.read_csv("./dataset/Test.csv")
+def run_web():
+    st.title("hello world!")
 
-X_train, y_train = train.drop(columns=["class"]), train[["class"]].to_numpy().reshape(-1)
-X_test, y_test = test.drop(columns=["class"]), test[["class"]].to_numpy().reshape(-1)
+def main():
+    train = pd.read_csv("./dataset/Train.csv")
+    test = pd.read_csv("./dataset/Test.csv")
 
-lgr = LogisticRegression()
-decision_tree = DecisionTreeClassifier()
-rf = RandomForestClassifier()
+    X_train, y_train = train.drop(columns=["class"]), train[["class"]].to_numpy().reshape(-1)
+    X_test, y_test = test.drop(columns=["class"]), test[["class"]].to_numpy().reshape(-1)
 
-model = Model(rf,X_train, y_train, X_test, y_test)
+    rf = RandomForestClassifier()
 
-model.test(110)
+    model = Model(rf,X_train, y_train, X_test, y_test)
+
+    run_web()
+
+if __name__ == "__main__":
+    main()
