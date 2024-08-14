@@ -7,5 +7,6 @@ services:
       - SKIP_TESTS=true
     container_name: GOOSE_Attack_Detector
     command: streamlit run web.py --server.port=8080 --server.address=0.0.0.0
+    # command: python classifier.py
     volumes: 
       - .:/app

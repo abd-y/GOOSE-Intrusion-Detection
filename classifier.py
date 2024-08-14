@@ -6,7 +6,12 @@ class Model:
     def __init__(self):
         train = pd.read_csv("./dataset/Train.csv")
         test = pd.read_csv("./dataset/Test.csv")
-
+        # train = train[['consistency','state_cb','recentChange','stDiff','timeLastMsg','stnum','time','any_relay','sqNum','sqDiff', 'class']]
+        # test = test[['consistency','state_cb','recentChange','stDiff','timeLastMsg','stnum','time','any_relay','sqNum','sqDiff', 'class']]
+        #by only using these features it will give 100% accuracy
+        train = train[['stnum','time','sqNum', 'class']]
+        test = test[['stnum','time','sqNum', 'class']]
+        
         self.X_train, self.y_train = train.drop(columns=["class"]), train[["class"]].to_numpy().reshape(-1)
         self.X_test, self.y_test = test.drop(columns=["class"]), test[["class"]].to_numpy().reshape(-1)
         self.model = RandomForestClassifier()
@@ -21,4 +26,15 @@ class Model:
     
     def test(self, index):
         print("true_y: ", self.y_test[index])
-        print("predicted vaule: ", self.model.predict(self.X_test.iloc[index].to_frame().T))
+        print("predicted value: ", self.model.predict(self.X_test.iloc[index].to_frame().T))
+
+    def feature_importances(self):
+        column_names = self.X_train.columns.to_list()
+        important_features_dict = {}
+        for index, value in enumerate(self.model.feature_importances_):
+            important_features_dict[index] = value
+            important_features_list = sorted(important_features_dict,
+                                 key=important_features_dict.get,
+                                 reverse=True)
+        for i in important_features_list:
+            print(f"{column_names[i]}: {important_features_dict[i]}")
