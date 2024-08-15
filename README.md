@@ -3,12 +3,12 @@ A very simple demo of a machine learning model to classify GOOSE packets if they
 ## Options and requirements to run the code
 1- Using docker: [Download Docker](https://docs.docker.com/engine/install/)<br>
 2- Or using python, but the recommended option using docker.
-## Option 1 run the code using docker
+## Option 1: Run the code using docker
 Make sure before running the following command you're inside the directory where the code exists.
 ```
 docker compose up
 ```
-## Option 2 run the code using python
+## Option 2: Run the code using python
 ```
 pip install -U numpy matplotlib pandas scikit-learn streamlit
 ```
