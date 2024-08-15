@@ -1,44 +1,25 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 import streamlit as st
+from classifier import Model
+import pandas as pd
 
-class Model:
-    def __init__(self, model, X_train, y_train, X_test, y_test):
-        self.model = model
-        self.X_train = X_train
-        self.y_train = y_train
-        self.X_test = X_test
-        self.y_test = y_test
+if "text" not in st.session_state:
+	st.session_state.text = ""
 
-        self.model.fit(X_train, y_train)
+def submit():
+	data = [[float(stnum), float(time), float(sqNum)]]
+	st.session_state.text = model.predict(data)[0] + " packet"
 
-    def get_score(self):
-        return self.model.score(self.X_test, self.y_test)
-    
-    def predict(self, X):
-        return self.model.predict(X)
-    
-    def test(self, index):
-        print("true_y: ", self.y_test[index])
-        print("predicted vaule: ", self.model.predict(self.X_test.iloc[index].to_frame().T))
+st.title("GOOSE Attack Detector")
 
-def run_web():
-    st.title("hello world!")
+model = Model()
+X = model.X_test
+X["class"] = model.y_test
 
-def main():
-    train = pd.read_csv("./dataset/Train.csv")
-    test = pd.read_csv("./dataset/Test.csv")
+time = st.text_input("timeAllowedtoLive")
+stnum = st.text_input("stnum")
+sqNum = st.text_input("sqNum")
+button = st.button("submit", on_click=submit)
+output = st.title(st.session_state.text)
 
-    X_train, y_train = train.drop(columns=["class"]), train[["class"]].to_numpy().reshape(-1)
-    X_test, y_test = test.drop(columns=["class"]), test[["class"]].to_numpy().reshape(-1)
+st.text(X.head(-13).to_string(index=False))
 
-    rf = RandomForestClassifier()
-
-    model = Model(rf,X_train, y_train, X_test, y_test)
-
-    run_web()
-
-if __name__ == "__main__":
-    main()

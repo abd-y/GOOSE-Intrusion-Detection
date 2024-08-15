@@ -6,9 +6,6 @@ class Model:
     def __init__(self):
         train = pd.read_csv("./dataset/Train.csv")
         test = pd.read_csv("./dataset/Test.csv")
-        # train = train[['consistency','state_cb','recentChange','stDiff','timeLastMsg','stnum','time','any_relay','sqNum','sqDiff', 'class']]
-        # test = test[['consistency','state_cb','recentChange','stDiff','timeLastMsg','stnum','time','any_relay','sqNum','sqDiff', 'class']]
-        #by only using these features it will give 100% accuracy
         train = train[['stnum','time','sqNum', 'class']]
         test = test[['stnum','time','sqNum', 'class']]
         
@@ -38,3 +35,6 @@ class Model:
                                  reverse=True)
         for i in important_features_list:
             print(f"{column_names[i]}: {important_features_dict[i]}")
+
+
+
