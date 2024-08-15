@@ -1,5 +1,5 @@
 # GOOSE Intrusion Detection system (IDS)
-A very simple demo of a machine learning model to classify GOOSE packets if they are normal, injection, masquerade, replay, or fault. GOOSE is based on the IEC-61850 protocol. The model accuracy achieved is 100% on the testing set using random forest classifier. 
+A very simple demo of a machine learning model to classify GOOSE packets if they are normal, injection, masquerade, replay, or fault. GOOSE is based on the IEC-61850 protocol. The model accuracy achieved 100% on the testing set using random forest classifier. 
 ## Options and requirements to run the code
 1- Using docker: [Download Docker](https://docs.docker.com/engine/install/)<br>
 2- Or using python, but the recommended option using docker.
