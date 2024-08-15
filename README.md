@@ -1,4 +1,4 @@
-# GOOSE Attack Detector
+# GOOSE Intrusion Detection system (IDS)
 A machine learning model to classify GOOSE packets if they are normal packets or an attack with the type of attack. GOOSE is based on the IEC-61850 protocol.
 ## Run the code using docker
 ```
